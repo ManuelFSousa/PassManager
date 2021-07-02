@@ -1,4 +1,4 @@
-#Comment
+import cripto.py
 
 def login():
     print(""" 
@@ -45,7 +45,8 @@ def main():
 
 
 
-if __name__ == "__main__":  #Quando abro diretamente este ficheiro, a variável especial "__name" tem a string "__main__"
+if __name__ == "__main__":  #Quando abro diretamente este ficheiro, a variável especial "__name__" tem a string "__main__"
     main()                  #atribuída. Isto acontece por definição. Caso este módulo seja chamado por outro programa,
                             #a variável "__name__" fica com a string igual ao nome (neste caso seria só "main").
 
+#here: https://www.thepythoncode.com/article/encrypt-decrypt-files-symmetric-python
