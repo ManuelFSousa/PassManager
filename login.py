@@ -12,21 +12,22 @@ def new_pass():
         os.mkdir(os.getcwd() + '/sys')
 
     print("Qual é o novo utilizador? (Para cancelar deixe em branco)")
-    utilizador = input()
-    if utilizador == '':
+    user = input()
+    if user == '':
         return 0
-    if path.exists(os.getcwd() + "/sys/" + utilizador + ".key") == True:
+    if path.exists(os.getcwd() + "/sys/" + user + "/" + user + ".key") == True:
         print("O utilizador já existe.")
         return 0
 
+    os.mkdir(os.getcwd() + '/sys/' + user)
     print("Qual é a nova password para o login?")
     passe = input()
     print("Repita a password, por favor.")
     passe2 = input()
     
     if passe == passe2:
-        f = open(os.getcwd() + "/sys/" + utilizador + ".key" , "w")
-        password = sha256_crypt.encrypt(passe + "jaFoste")
+        f = open(os.getcwd() + "/sys/" + user + "/" + user + ".key" , "w")
+        password = sha256_crypt.encrypt(passe + "hJwOcmG")
         f.write(password)
         f.close()
         print("Login Criado Com Sucesso!")
@@ -38,15 +39,15 @@ def new_pass():
 
 
 def check_pass(user, password):
-    if path.exists(os.getcwd() + "/sys/" + user + ".key") == True:
-        f = open(os.getcwd() + "/sys/" + user + ".key", "r")
+    if path.exists(os.getcwd() + "/sys/" + user + "/" + user + ".key") == True:
+        f = open(os.getcwd() + "/sys/" + user + "/" + user + ".key", "r")
         hashed = f.read()
         f.close()
     else:
         print("O utilizador está errado.")
         return 0
 
-    if sha256_crypt.verify(password + "jaFoste", hashed) == True:
+    if sha256_crypt.verify(password + "hJwOcmG", hashed) == True:
         print("Login efetuado com sucesso!")
         return 1
     else:

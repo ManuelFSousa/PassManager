@@ -18,7 +18,7 @@ def login():
     user = input("Utilizador: ")
     password = input("Password: ")
 
-    return check_pass(user, password)
+    return check_pass(user, password), user
 
 def imprimirMenu1():
     print(""" 
@@ -49,18 +49,29 @@ def imprimirMenu2():
     print("3 - Mudar utilizador")
     print("4 - Fechar Programa")
 
-def savePass():
-    print("algo")
 
-def loginEfetuado():
+def loginEfetuado(user):
     escolha = 1
+    key = cripto.check_key(user)
+
     while escolha > 0 or escolha < 6:
         imprimirMenu2()
         escolha = int(input("\nA sua opção: "))
         if escolha == 1:
-            savePass()
-        if escolha == 3:
+            clearConsole()
+            print("Qual o nome do programa do qual quer guardar a password?")
+            programa = input()
+            cripto.save_pass(user, programa.lower(), key)
+
+        elif escolha == 2:
+            clearConsole()
+            print("Qual o nome do programa do qual quer ver a password?")
+            programa = input()
+            cripto.load_pass(user, programa.lower(), key)
+
+        elif escolha == 3:
             return 3
+
         elif escolha == 4:
             return 4
 
@@ -71,15 +82,16 @@ def main():
         imprimirMenu1()
         escolha = int(input("\nA sua opção: "))
         if escolha == 1:
-            if login() == 1:
-                print("Login bem sucedido!")
-                next = loginEfetuado()
+            valor, user = login()
+            if valor == 1:
+                next = loginEfetuado(user)
                 if next == 4:
                     clearConsole()
                     return 0
-            else:
+
+            elif login != 1 and next != 3:
                 print("Erro no Login!")
-                return
+                return 0
         elif escolha == 2:
             new_pass()
         elif escolha == 3:
